@@ -55,13 +55,20 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
+        if (name1.equals(name2)) {
+            return false;
+        }
+    
         User user1 = getUser(name1);
         User user2 = getUser(name2);
+    
         if (user1 == null || user2 == null) {
-            return false; 
+            return false;
         }
+    
         return user1.addFollowee(name2); 
     }
+    
     
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
@@ -124,11 +131,12 @@ public class Network {
 
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
-        StringBuilder sb = new StringBuilder("Network:\n");
+        StringBuilder sb = new StringBuilder("Network:");
         for (int i = 0; i < userCount; i++) {
-            sb.append(users[i].toString()).append("\n");
+            sb.append("\n").append(users[i].toString().trim());
         }
         return sb.toString();
     }
+    
     
 }
